@@ -9,6 +9,7 @@ include_once __DIR__ . '/timetest.php';
     define('LVL_WEEK', 2);
     define('LVL_MONTH', 3);
     define('LVL_YEAR', 4);
+    define('LVL_INDIVIDUAL', 99);
 
     class Verbrauchsverhalten extends IPSModule
     {
@@ -23,6 +24,10 @@ include_once __DIR__ . '/timetest.php';
             $this->RegisterPropertyInteger('Limit', 0);
             $this->RegisterPropertyInteger('OutsideTemperatureID', 0);
             $this->RegisterPropertyInteger('CounterID', 0);
+            $this->RegisterPropertyString('StartDatePeriod', '');
+            $this->RegisterPropertyString('EndDatePeriod', '');
+            $this->RegisterPropertyString('StartDateBaseline', '');
+            $this->RegisterPropertyString('EndDateBaseline', '');
 
             //Timer
             $this->RegisterPropertyInteger('Interval', 5);
@@ -83,6 +88,7 @@ include_once __DIR__ . '/timetest.php';
                     $startTimeThisPeriod = strtotime('today 00:00:00', $this->getTime());
                     $startTimeLastPeriod = strtotime('-1 day', $startTimeThisPeriod);
                     $endTimeThisPeriod = strtotime('+1 day', $startTimeThisPeriod);
+                    $endTimeLastPeriod = $startTimeThisPeriod;
                     $aggregationLevel = LVL_HOUR;
                     break;
 
@@ -90,6 +96,7 @@ include_once __DIR__ . '/timetest.php';
                     $startTimeThisPeriod = strtotime('monday this week 00:00:00', $this->getTime());
                     $startTimeLastPeriod = strtotime('-1 week', $startTimeThisPeriod);
                     $endTimeThisPeriod = strtotime('+1 week', $startTimeThisPeriod);
+                    $endTimeLastPeriod = $startTimeThisPeriod;
                     $aggregationLevel = LVL_DAY;
                     break;
 
@@ -97,6 +104,7 @@ include_once __DIR__ . '/timetest.php';
                     $startTimeThisPeriod = strtotime('first day of this month 00:00:00', $this->getTime());
                     $startTimeLastPeriod = strtotime('-1 month', $startTimeThisPeriod);
                     $endTimeThisPeriod = strtotime('+1 month', $startTimeThisPeriod);
+                    $endTimeLastPeriod = $startTimeThisPeriod;
                     $aggregationLevel = LVL_DAY;
                     break;
 
@@ -104,6 +112,23 @@ include_once __DIR__ . '/timetest.php';
                     $startTimeThisPeriod = strtotime('first day of january 00:00:00', $this->getTime());
                     $startTimeLastPeriod = strtotime('-1 year', $startTimeThisPeriod);
                     $endTimeThisPeriod = strtotime('+1 year', $startTimeThisPeriod);
+                    $endTimeLastPeriod = $startTimeThisPeriod;
+                    $aggregationLevel = LVL_DAY;
+                    break;
+
+                case LVL_INDIVIDUAL:
+                    $startDatePeriod = json_decode($this->ReadPropertyString['StartDatePeriod'], true);
+                    $endDatePeriod = json_decode($this->ReadPropertyString['EndDatePeriod'], true);
+
+                    $startTimeThisPeriod = strtotime($startDatePeriod['day'] . '.' . $startDatePeriod['month'] . '.' . $startDatePeriod['year']);
+                    $endTimeThisPeriod = strtotime($endDatePeriod['day'] . '.' . $endDatePeriod['month'] . '.' . $endDatePeriod['year']);
+
+                    $startDateLastPeriod = json_decode($this->ReadPropertyString['StartDateBaseline'], true);
+                    $endDateLastPeriod = json_decode($this->ReadPropertyString['EndDateBaseline'], true);
+
+                    $startTimeLastPeriod = strtotime($startDateLastPeriod['day'] . '.' . $startDateLastPeriod['month'] . '.' . $startstartDateLastPeriodDate['year']);
+                    $endTimeLastPeriod = strtotime($endDateLastPeriod['day'] . '.' . $endDateLastPeriod['month'] . '.' . $endDateLastPeriod['year']);
+
                     $aggregationLevel = LVL_DAY;
                     break;
 
@@ -126,7 +151,7 @@ include_once __DIR__ . '/timetest.php';
             $this->SetValue('CurrentCoD', $arrayCurrent['coefficientOfDetermination']);
 
             //Last period
-            $arrayLast = $this->calculate($aggregationLevel, $outsideID, $counterID, $startTimeLastPeriod, $startTimeThisPeriod);
+            $arrayLast = $this->calculate($aggregationLevel, $outsideID, $counterID, $startTimeLastPeriod, $endTimeLastPeriod);
 
             if ($arrayLast == []) {
                 //status is set from calculate

@@ -49,8 +49,32 @@
                 {
                     "caption": "Year",
                     "value": 4
+                },
+                {
+                    "caption": "Individual",
+                    "value": 99
                 }
             ]
+        },
+        {
+            "type": "SelectDate",
+            "name": "StartDatePeriod",
+            "caption": "Start Date Period"
+        },
+        {
+            "type": "SelectDate",
+            "name": "EndDatePeriod",
+            "caption": "End Date Period"
+        },
+        {
+            "type": "SelectDate",
+            "name": "StartDateBaseline",
+            "caption": "Start Date Baseline"
+        },
+        {
+            "type": "SelectDate",
+            "name": "EndDateBaseline",
+            "caption": "End Date Baseline"
         },
         {
             "type": "NumberSpinner",
