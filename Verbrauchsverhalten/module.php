@@ -117,8 +117,8 @@ include_once __DIR__ . '/timetest.php';
                     break;
 
                 case LVL_INDIVIDUAL:
-                    $startDatePeriod = json_decode($this->ReadPropertyString['StartDatePeriod'], true);
-                    $endDatePeriod = json_decode($this->ReadPropertyString['EndDatePeriod'], true);
+                    $startDatePeriod = json_decode($this->ReadPropertyString('StartDatePeriod'), true);
+                    $endDatePeriod = json_decode($this->ReadPropertyString('EndDatePeriod'), true);
 
                     $startTimeThisPeriod = strtotime($startDatePeriod['day'] . '.' . $startDatePeriod['month'] . '.' . $startDatePeriod['year']);
                     $endTimeThisPeriod = strtotime($endDatePeriod['day'] . '.' . $endDatePeriod['month'] . '.' . $endDatePeriod['year']);
