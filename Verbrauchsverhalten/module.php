@@ -126,7 +126,7 @@ include_once __DIR__ . '/timetest.php';
                     $startDateLastPeriod = json_decode($this->ReadPropertyString('StartDateBaseline'), true);
                     $endDateLastPeriod = json_decode($this->ReadPropertyString('EndDateBaseline'), true);
 
-                    $startTimeLastPeriod = strtotime($startDateLastPeriod['day'] . '.' . $startDateLastPeriod['month'] . '.' . $startstartDateLastPeriodDate['year']);
+                    $startTimeLastPeriod = strtotime($startDateLastPeriod['day'] . '.' . $startDateLastPeriod['month'] . '.' . $startDateLastPeriodDate['year']);
                     $endTimeLastPeriod = strtotime($endDateLastPeriod['day'] . '.' . $endDateLastPeriod['month'] . '.' . $endDateLastPeriod['year']);
 
                     $aggregationLevel = LVL_DAY;
