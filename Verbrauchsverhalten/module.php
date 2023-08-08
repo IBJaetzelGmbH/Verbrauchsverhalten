@@ -123,8 +123,8 @@ include_once __DIR__ . '/timetest.php';
                     $startTimeThisPeriod = strtotime($startDatePeriod['day'] . '.' . $startDatePeriod['month'] . '.' . $startDatePeriod['year']);
                     $endTimeThisPeriod = strtotime($endDatePeriod['day'] . '.' . $endDatePeriod['month'] . '.' . $endDatePeriod['year']);
 
-                    $startDateLastPeriod = json_decode($this->ReadPropertyString['StartDateBaseline'], true);
-                    $endDateLastPeriod = json_decode($this->ReadPropertyString['EndDateBaseline'], true);
+                    $startDateLastPeriod = json_decode($this->ReadPropertyString('StartDateBaseline'), true);
+                    $endDateLastPeriod = json_decode($this->ReadPropertyString('EndDateBaseline'), true);
 
                     $startTimeLastPeriod = strtotime($startDateLastPeriod['day'] . '.' . $startDateLastPeriod['month'] . '.' . $startstartDateLastPeriodDate['year']);
                     $endTimeLastPeriod = strtotime($endDateLastPeriod['day'] . '.' . $endDateLastPeriod['month'] . '.' . $endDateLastPeriod['year']);
